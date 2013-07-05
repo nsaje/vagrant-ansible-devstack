@@ -25,3 +25,5 @@ function apt_get() {
     apt-get --force-yes --option "Dpkg::Options::=--force-confold" --assume-yes "$@"
 }
 EOF
+
+cp /tmp/images/* /home/vagrant/devstack/files/

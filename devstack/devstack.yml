@@ -2,11 +2,11 @@
 - hosts: devstack
   gather_facts: False
   vars:
-    devstack_repo: git://github.com/openstack-dev/devstack.git
+    devstack_repo: http://git.oschina.net/openstack-dev/devstack.git
     branch: master
     offline: no
     reclone: no
-    git_base: git://github.com
+    git_base: http://git.oschina.net
     image_url: http://download.cirros-cloud.net/0.3.1/cirros-0.3.1-x86_64-uec.tar.gz
     devstack_branch: "{{branch}}"
   tasks:

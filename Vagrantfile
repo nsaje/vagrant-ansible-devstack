@@ -7,7 +7,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: "192.168.27.100"
   # config.vm.network :public_network
-  
+
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   config.vm.provider :virtualbox do |vb|
@@ -17,6 +17,11 @@ Vagrant.configure("2") do |config|
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
+
+  # config.vm.synced_folder "cache/apt", "/var/cache/apt"
+  config.vm.synced_folder "binary/stack/", "/opt/stack"
+  config.vm.synced_folder "binary/pip", "/var/cache/pip"
+  config.vm.synced_folder "binary/images", "/tmp/images"
 
   # View the documentation for the provider you're using for more
   # information on available options.
