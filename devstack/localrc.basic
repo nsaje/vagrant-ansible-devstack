@@ -54,3 +54,7 @@ FLAT_INTERFACE=eth1
 PUBLIC_INTERFACE=eth1
 HOST_IP=$(ifconfig | grep $PUBLIC_INTERFACE -A 5 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}')
 FLOATING_RANGE=192.168.27.128/28
+
+
+## image url
+IMAGE_URL={{image_url}}

@@ -56,6 +56,9 @@ HOST_IP=$(ifconfig | grep $PUBLIC_INTERFACE -A 5 | grep 'inet addr' | awk '{prin
 FLOATING_RANGE=192.168.27.128/28
 
 
+## image url
+IMAGE_URL={{image_url}}
+
 ## enable heat
 enable_service heat
 enable_service h-api
