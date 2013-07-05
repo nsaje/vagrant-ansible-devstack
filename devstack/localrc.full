@@ -1,0 +1,90 @@
+# -*- mode: sh-*-
+# vi: set ft=sh:
+
+#### refer to http://devstack.org/localrc.html for localrc details
+
+
+## git repo clone settings
+# see http://devstack.org/guides/single-vm.html for details
+# "Setting OFFLINE=True in localrc enables stack.sh to run multiple times
+# without an Internet connection. DevStack, making hacking at the lake possible
+# since 2012!"
+OFFLINE={{offline}}
+
+# You can set a different git base url. And you can also set different git repo
+# url for various openstack project, see devstack/stackrc for details.
+GIT_BASE={{git_base}}
+
+
+## git branch settings
+CEILOMETER_BRANCH={{branch}}
+CINDER_BRANCH={{branch}}
+GLANCE_BRANCH={{branch}}
+HEAT_BRANCH={{branch}}
+HORIZON_BRANCH={{branch}}
+KEYSTONE_BRANCH={{branch}}
+NOVA_BRANCH={{branch}}
+QUANTUM_BRANCH={{branch}}
+SWIFT_BRANCH={{branch}}
+
+
+## stack.sh logging
+LOGFILE=stack.sh.log
+# LOGDAYS=1
+LOG_COLOR=False
+
+
+## Screen logging
+SCREEN_LOGDIR=$DEST/logs/screen
+
+
+## A clean install every time.
+RECLONE={{reclone}}
+
+
+## basic settings
+DATABASE_PASSWORD=devstack
+RABBIT_PASSWORD=devstack
+SERVICE_PASSWORD=devstack
+ADMIN_PASSWORD=devstack
+SERVICE_TOKEN=devstack
+SWIFT_HASH=devstack
+
+FLAT_INTERFACE=eth1
+PUBLIC_INTERFACE=eth1
+HOST_IP=$(ifconfig | grep $PUBLIC_INTERFACE -A 5 | grep 'inet addr' | awk '{print $2}' | awk -F: '{print $2}')
+FLOATING_RANGE=192.168.27.128/28
+
+
+## enable heat
+enable_service heat
+enable_service h-api
+enable_service h-api-cfn
+enable_service h-api-cw
+enable_service h-eng
+
+
+## enable ceilomter
+enable_service ceilometer-acompute
+enable_service ceilometer-acentral
+enable_service ceilometer-collector
+enable_service ceilometer-api
+
+
+## enable quantum
+disable_service n-net
+enable_service q-svc
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-l3
+enable_service q-meta
+enable_service quantum
+
+
+## Optional, to enable tempest configuration as part of devstack
+enable_service tempest
+
+
+## enable swift
+enable_service swift
+#### refer to http://devstack.org/localrc.html for localrc details
