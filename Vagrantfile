@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   # config.vm.box_url = "https://www.dropbox.com/s/uzuc3h5p7tysin2/hackerbox_precise64.box"
 
   config.vm.network :private_network, ip: "192.168.27.100"
-  # config.vm.network :public_network
+  config.vm.network :public_network
 
   # config.vm.synced_folder "../data", "/vagrant_data"
 
@@ -18,8 +18,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
   end
 
-  # config.vm.synced_folder "cache/apt", "/var/cache/apt"
-  config.vm.synced_folder "binary/stack/", "/opt/stack"
+  # config.vm.synced_folder "binary/stack/", "/opt/stack"
   config.vm.synced_folder "binary/pip", "/var/cache/pip"
   config.vm.synced_folder "binary/images", "/tmp/images"
 

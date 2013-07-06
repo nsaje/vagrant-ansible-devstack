@@ -26,6 +26,7 @@ KEYSTONE_BRANCH={{branch}}
 NOVA_BRANCH={{branch}}
 QUANTUM_BRANCH={{branch}}
 SWIFT_BRANCH={{branch}}
+NOVNC_REPO=${GIT_BASE}/openstack/novnc.git
 
 
 ## stack.sh logging
