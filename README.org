@@ -1,0 +1,79 @@
+#+TITLE:     Vagrant Ansible Devstack
+#+AUTHOR:    Xiao Hanyu
+#+EMAIL:     xiaohanyu1988@gmail.com
+#+DATE:      2013-07-06
+
+* Quick Start
+This project provides a simple way to build an instant openstack environment
+through [[http://][devstack]].
+
+You should have the following installed:
+- [[https://www.virtualbox.org][VirtualBox]]
+- [[http://www.vagrantup.com/][Vagrant]] 1.2.x: see [[http://docs.vagrantup.com/v2/installation/index.html][here]] for how to install vagrant.
+- [[https://www.virtualbox.org][Ansible]]: you can get ansible through =pip install ansible=.
+
+Then you should have a vagrant base box, I recommend precise64:
+#+BEGIN_EXAMPLE
+vagrant box add precise64 --provider virtualbox http://files.vagrantup.com/precise64.box
+#+END_EXAMPLE
+
+*Commercial Time*: I myself use a [[https://github.com/xiaohanyu/vagrant-hackerbox][vagrant hackerbox]], which provides a really
+comfortable working environment.
+
+#+BEGIN_EXAMPLE
+vagrant box add hackerbox_precise64 --provider virtualbox https://www.dropbox.com/s/uzuc3h5p7tysin2/hackerbox_precise64.box
+#+END_EXAMPLE
+
+After all the prerequisite met, you can boot an instant openstack environment:
+#+BEGIN_EXAMPLE
+git clone git@github.com:xiaohanyu/vagrant-ansible-devstack.git
+cd vagrant-ansible-devstack
+vagrant up
+#+END_EXAMPLE
+
+* Internals
+You can set some basic options in [[https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/master/devstack/devstack.yml][devstack.yml]], such as:
+- Which openstack branch you want to clone? master or stable/grizzly?
+- Where you can get the openstack code? Through github or you company's internal
+  github mirror?
+- Do you want do =git pull= the code each time you redo =stack.sh=?
+
+Personally, I recommend you use a =stable/xxx= branch for the first time, since
+the =master= branch may have some really weird bugs, which may make you
+disgusting.
+
+This project also provide two devstack =localrc= template:
+- [[https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/master/devstack/localrc.basic][localrc.basic]] enable basic openstack service, including nova, cinder,
+  glance, keystone and horizon, requires at least 1GB RAM.
+- [[https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/master/devstack/localrc.full][localrc.full]] beyond basic openstack service, enable quantum, heat,
+  ceilometer, you'd better give the vm 2GB RAM.
+
+I recommend you use =localrc.basic= as the starting point.
+
+You can also do something else through a [[https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/master/devstack/dowhatyoulike.sh][dowhatyoulike.sh]] hook, such as:
+- change the default apt =source.list= to boost you =apt-get=
+- change default devstack options, etc.
+
+* Bonus Tips
+- Use virtualbox snapshot if possible to keep a clean, working environment.
+- Use =rejoin-stack.sh= to restart openstack service instead of =stack.sh=.
+
+* For Chinese Users
+Chinese user have a really difficult environment to do openstack development
+due to the poor network and the fucking Great Fire Wall. So I built a openstack
+git mirror:
+- http://git.oschina.net/openstack
+- http://git.oschina.net/openstack-dev
+
+Hope it helps. And another weird problem is pip, which often ends with a
+=Connection Timeout= error during devstack =stack.sh=. My workaround here:
+- Use http://e.pypi.python.org/ as the pip index-url.
+- Provide an already downloaded pip cache, yes, you can do this by using
+  vagrant [[http://docs.vagrantup.com/v2/synced-folders/][synced folder]] strategy, see
+  https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/local_xhy_test/Vagrantfile
+  for details.
+
+* References
+- https://github.com/lorin/devstack-vm
+- https://github.com/dizz/vagrant-devstack
+- https://github.com/bcwaldon/vagrant_devstack
