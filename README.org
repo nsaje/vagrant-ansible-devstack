@@ -21,12 +21,12 @@ vagrant box add precise64 --provider virtualbox http://files.vagrantup.com/preci
 comfortable working environment.
 
 #+BEGIN_EXAMPLE
-vagrant box add hackerbox_precise64 --provider virtualbox https://www.dropbox.com/s/uzuc3h5p7tysin2/hackerbox_precise64.box
+vagrant box add hackerbox_precise64 --provider virtualbox https://dl.dropboxusercontent.com/s/uzuc3h5p7tysin2/hackerbox_precise64.box?token_hash=AAGdDLje6YhQOhwXbUqLkh9nAfxQd_TUnnCiJKkZJynVsA&dl=1
 #+END_EXAMPLE
 
 After all the prerequisite met, you can boot an instant openstack environment:
 #+BEGIN_EXAMPLE
-git clone git@github.com:xiaohanyu/vagrant-ansible-devstack.git
+git clone https://github.com/xiaohanyu/vagrant-ansible-devstack.git
 cd vagrant-ansible-devstack
 vagrant up
 #+END_EXAMPLE
