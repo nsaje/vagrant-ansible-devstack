@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "hackerbox_precise64"
+  config.vm.box = "precise64"
   # config.vm.box_url = "https://www.dropbox.com/s/uzuc3h5p7tysin2/hackerbox_precise64.box"
 
   config.vm.network :private_network, ip: "192.168.27.100"

@@ -24,7 +24,7 @@ HEAT_BRANCH={{branch}}
 HORIZON_BRANCH={{branch}}
 KEYSTONE_BRANCH={{branch}}
 NOVA_BRANCH={{branch}}
-QUANTUM_BRANCH={{branch}}
+NEUTRON_BRANCH={{branch}}
 SWIFT_BRANCH={{branch}}
 
 
@@ -74,14 +74,14 @@ enable_service ceilometer-collector
 enable_service ceilometer-api
 
 
-## enable quantum
+## enable neutron
 disable_service n-net
 enable_service q-svc
 enable_service q-agt
 enable_service q-dhcp
 enable_service q-l3
 enable_service q-meta
-enable_service quantum
+enable_service neutron
 
 
 ## Optional, to enable tempest configuration as part of devstack
