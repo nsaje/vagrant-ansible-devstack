@@ -4,8 +4,8 @@
 #+DATE:      2013-07-06
 
 * Quick Start
-This project provides a simple way to build an instant openstack environment
-through [[http://][devstack]].
+This project provides a simple way to build an instant openstack developing
+environment through [[http://][devstack]].
 
 You should have the following installed:
 - [[https://www.virtualbox.org][VirtualBox]]
@@ -24,12 +24,65 @@ comfortable working environment.
 vagrant box add hackerbox_precise64 --provider virtualbox https://dl.dropboxusercontent.com/s/uzuc3h5p7tysin2/hackerbox_precise64.box?token_hash=AAGdDLje6YhQOhwXbUqLkh9nAfxQd_TUnnCiJKkZJynVsA&dl=1
 #+END_EXAMPLE
 
-After all the prerequisite met, you can boot an instant openstack environment:
+After all the prerequisities met, you can boot an instant openstack developing
+environment:
 #+BEGIN_EXAMPLE
 git clone https://github.com/xiaohanyu/vagrant-ansible-devstack.git
 cd vagrant-ansible-devstack
 vagrant up
 #+END_EXAMPLE
+
+*Note that*, there may be some errors due to network, pip/apt mirror, devstack
+bugs, be patient, please. If you're a lazy guy. I've already built a devstack
+box for you. Just download the box from [[https://s.yunio.com/CgYfKh][here]], add it to your vagrant box list:
+
+#+BEGIN_EXAMPLE
+vagrant box add devstack devstack-20121028.box
+#+END_EXAMPLE
+
+Modify some parameters in your =Vagrantfile=, ensure that you have
+=192.168.27.100= as the private network ip for your box. Then
+
+#+BEGIN_EXAMPLE
+$ vagrant up --no-provision
+Bringing machine 'default' up with 'virtualbox' provider...
+[default] Clearing any previously set forwarded ports...
+[default] Fixed port collision for 22 => 2222. Now on port 2200.
+[default] Creating shared folders metadata...
+[default] Clearing any previously set network interfaces...
+[default] Preparing network interfaces based on configuration...
+[default] Forwarding ports...
+[default] -- 22 => 2200 (adapter 1)
+[default] Running 'pre-boot' VM customizations...
+[default] Booting VM...
+[default] Waiting for machine to boot. This may take a few minutes...
+[default] Machine booted and ready!
+[default] Configuring and enabling network interfaces...
+[default] Mounting shared folders...
+[default] -- /vagrant
+
+$ vagrant ssh
+Welcome to Ubuntu 12.04 LTS (GNU/Linux 3.2.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+Welcome to your Vagrant-built virtual machine.
+Last login: Fri Nov 22 09:22:37 2013 from 10.0.2.2
+vagrant@precise64:~$ cd devstack/
+vagrant@precise64:~/devstack$ ./rejoin-stack.sh
+#+END_EXAMPLE
+
+If you want to make [[http://docs.openstack.org/developer/cinder/][cinder]] work in your local box, you need to add an extra
+virtualbox disk, and then issue some [[http://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux)][LVM]] commands like this:
+
+#+BEGIN_EXAMPLE
+sudo pvcreate /dev/sdb
+sudo vgcreate stack-volumes /dev/sdb
+#+END_EXAMPLE
+
+Internally, this box contains code from openstack master branch till date Oct
+28 2013. You may need do some =git pull origin master= to update your code. For
+simplicity, this box set up dev environment based on [[https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/master/devstack/localrc.basic][localrc.basic]], which means
+it doesn't contain OpenStack heat, ceilometer, and neutron.
 
 * Internals
 You can set some basic options in [[https://github.com/xiaohanyu/vagrant-ansible-devstack/blob/master/devstack/devstack.yml][devstack.yml]], such as:
