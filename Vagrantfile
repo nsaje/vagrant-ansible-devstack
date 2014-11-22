@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you're using for more
   # information on available options.
   config.vm.provision :ansible do |ansible|
+    ansible.limit = "all"
     ansible.sudo = true
     ansible.sudo_user = "root"
     ansible.playbook = "devstack/devstack.yml"
