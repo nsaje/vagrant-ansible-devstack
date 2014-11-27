@@ -89,5 +89,5 @@ enable_service tempest
 
 
 ## enable swift
-enable_service swift
+enable_service s-proxy s-object s-container s-account
 #### refer to http://devstack.org/localrc.html for localrc details
