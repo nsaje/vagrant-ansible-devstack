@@ -1,8 +1,10 @@
 # -*- mode: sh-*-
 # vi: set ft=sh:
 
-#### refer to http://devstack.org/localrc.html for localrc details
+#### refer to http://docs.openstack.org/developer/devstack/configuration.html 
+#### for configuration details
 
+[[local|localrc]]
 
 ## git repo clone settings
 # see http://devstack.org/guides/single-vm.html for details

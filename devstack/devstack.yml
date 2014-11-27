@@ -17,9 +17,9 @@
       sudo: no
       git: repo={{devstack_repo}} dest=/home/vagrant/devstack version={{devstack_branch}} accept_hostkey=yes
 
-    - name: copy localrc
+    - name: copy local.conf
       sudo: no
-      template: src=localrc.basic dest=/home/vagrant/devstack/localrc
+      template: src=local.conf.full dest=/home/vagrant/devstack/local.conf
 
     - name: do what you like
       sudo: yes
